@@ -1,18 +1,25 @@
 package mash
 
-import (
-	"fmt"
-	"net"
-)
+type Peerer interface {
+	Addr() string
+	Name() string
+	Available() bool
+}
 
 type Peer struct {
-	net.Listener
+	addr string
+	name string
+	available bool
 }
 
-func NewPeer(c Config) Peer {
-	return Peer{}
+func (p *Peer) Addr() string {
+	return p.addr
 }
 
-func (p *Peer) Listen() {
-	fmt.Print("Listening")
+func (p *Peer) Name() string {
+	return p.name
+}
+
+func (p *Peer) Available() bool {
+	return p.available
 }

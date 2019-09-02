@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/urfave/cli"
 	"log"
 	"mash.com/mash"
+	"mash.com/transport"
 	"os"
 )
 
@@ -44,14 +46,16 @@ func main() {
 func publish(c *cli.Context) error {
 	verbose := c.Bool("Verbose, v")
 
-	log.Fatal(verbose)
+	fmt.Print(verbose)
 	return nil
 }
 
 func listen(c *cli.Context) error {
-	peer := mash.NewPeer(mash.Config{})
+	self := mash.Init(&mash.Config{}, []transport.Connector{
+		&transport.UDPTransport{},
+	})
 
-	peer.Listen()
+	self.Connect()
 
 	return nil
 }
