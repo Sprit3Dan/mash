@@ -55,7 +55,5 @@ func listen(c *cli.Context) error {
 		&transport.UDPTransport{},
 	})
 
-	self.Connect()
-
-	return nil
+	return self.Connect()
 }

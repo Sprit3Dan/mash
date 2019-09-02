@@ -1,8 +1,6 @@
 package mash
 
 import (
-	"fmt"
-	"log"
 	"mash.com/event"
 	"mash.com/transport"
 )
@@ -29,13 +27,14 @@ func Init(c *Config, ts []transport.Connector) SelfPeer {
 	}
 }
 
-func (sp *SelfPeer) Connect() {
+func (sp *SelfPeer) Connect() error {
 	for _, t := range sp.c.ts {
 		if e := t.Connect(sp.bus); e != nil {
-			log.Fatal(e)
+			return e
 		}
 	}
-	fmt.Print("Listening")
+
+	return nil
 }
 
 func (sp *SelfPeer) Broadcast() {
