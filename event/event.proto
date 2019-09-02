@@ -1,0 +1,10 @@
+syntax = "proto2";
+package event;
+
+enum FOO { X = 17; };
+
+message Event {
+    required string label = 1;
+    optional int32 type = 2 [default=77];
+    repeated int64 reps = 3;
+}
