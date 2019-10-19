@@ -10,7 +10,7 @@ require (
 )
 
 replace (
-	mash.com/event => ../event
-	mash.com/mash => ../mash
-	mash.com/transport => ../transport
+	mash.com/event => ./../packages/event
+	mash.com/mash => ./../packages/mash
+	mash.com/transport => ./../packages/transport
 )

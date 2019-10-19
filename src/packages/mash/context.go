@@ -1,8 +1,6 @@
 package mash
 
-import (
-	"mash.com/transport"
-)
+import "mash.com/transport"
 
 type Context struct {
 	config *Config

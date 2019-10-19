@@ -1,4 +1,4 @@
-module mash.com/connector
+module mash.com/transport
 
 require mash.com/event v0.0.0
 
