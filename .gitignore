@@ -1,1 +1,8 @@
-**/*.pg.go
+# Protobuf-generated files
+**/*.pb.go
+
+# EDITOR configs
+.idea
+
+# Binary locations
+bin

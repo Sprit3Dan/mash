@@ -2,7 +2,7 @@ PROTOC = protoc
 GO = go
 
 all: proto
-	cd ./cli; ${GO} build main.go
+	cd ./cli; ${GO} build -o ./../bin/mash main.go
 
 proto:
 	${PROTOC} --go_out=. ./**/*.proto
