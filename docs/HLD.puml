@@ -1,0 +1,23 @@
+@startuml
+
+package Peer {
+    () "Event Bus" as eventBus
+    () API as api
+    [Mash Daemon] as daemon
+    database "Mash DB" as db
+}
+
+[3rd party Software] as software
+cloud "Mash Network" as network
+
+daemon -down- api
+daemon -down-> eventBus
+daemon -left-> db
+daemon -right-> network
+
+software -up- eventBus
+software -up- api
+
+network -left-> daemon
+
+@enduml
