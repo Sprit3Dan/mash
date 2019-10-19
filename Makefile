@@ -6,3 +6,6 @@ all: proto
 
 proto:
 	${PROTOC} --go_out=. ./**/*.proto
+
+clean:
+	rm ./cli/main; find . -name "*.pb.go" -delete
