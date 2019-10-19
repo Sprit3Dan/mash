@@ -1,11 +1,15 @@
 syntax = "proto2";
 package event;
 
-enum FOO { X = 17; };
-
 message Event {
-    required string label = 1;
-    optional int32 type = 2 [default=77];
-    repeated int64 reps = 3;
-    repeated bytes payload = 4;
+    enum MsgType {
+        HANDSHAKE = 1;
+        TRACE = 2;
+        KEY_EXCHANGE = 3;
+        DATA = 4;
+    }
+
+    required MsgType type = 1;
+    required string to = 2;
+    optional bytes payload = 3;
 }

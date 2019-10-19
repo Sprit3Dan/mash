@@ -7,8 +7,9 @@ import (
 
 type BluetoothTransport struct {}
 
-func (bt *BluetoothTransport) Connect(eBus chan event.Event) error {
-	return errors.New("Not implemented")
+
+func (bt *BluetoothTransport) Listen(eventChan chan event.Event, errorChan chan error) {
+	errorChan <- errors.New("BT not implemented")
 }
 
 func (bt *BluetoothTransport) Connected() bool {

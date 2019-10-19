@@ -13,11 +13,11 @@ type SelfPeer struct {
 	bus chan event.Event
 }
 
-func Init(c *Config, ts []transport.Connector) SelfPeer {
+func Init(c *Config, ts []transport.Transport) SelfPeer {
 	return SelfPeer{
 		ctx: &Context{
 			config: c,
-			connectors: ts,
+			transports: ts,
 		},
 		state: &State{
 			connected: false,
@@ -27,14 +27,14 @@ func Init(c *Config, ts []transport.Connector) SelfPeer {
 	}
 }
 
-func (sp *SelfPeer) Listen() error {
-	for _, c := range sp.ctx.connectors {
-		if e := c.Connect(sp.bus); e != nil {
-			return e
-		}
+func (sp *SelfPeer) Listen() chan error {
+	errChan := make(chan error)
+
+	for _, c := range sp.ctx.transports {
+		go c.Listen(sp.bus, errChan)
 	}
 
-	return nil
+	return errChan
 }
 
 func (sp *SelfPeer) InitTunnel(to ForeignPeer) Tunnel {

@@ -32,9 +32,9 @@ func main() {
 		cli.BoolFlag{
 			Name:	"Verbose",
 		},
-		cli.StringFlag{
+		cli.IntFlag{
 			Name:        "Port",
-			Value:       "7381",
+			Value:       1337,
 		},
 	}
 
@@ -50,10 +50,15 @@ func publish(c *cli.Context) error {
 	return nil
 }
 
-func listen(c *cli.Context) error {
-	self := mash.Init(&mash.Config{}, []transport.Connector{
-		&transport.UDPTransport{},
+func listen(c *cli.Context) {
+	self := mash.Init(&mash.Config{}, []transport.Transport{
+		&transport.UDPTransport{
+			Port: c.Int("Port"),
+		},
 	})
 
-	return self.Connect()
+	eCh := self.Listen()
+	for {
+		log.Print(<- eCh)
+	}
 }

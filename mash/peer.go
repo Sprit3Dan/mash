@@ -1,25 +1,25 @@
 package mash
 
-type Peerer interface {
+type Peer interface {
 	Addr() string
 	Name() string
 	Available() bool
 }
 
-type Peer struct {
+type peer struct {
 	addr string
-	name string
+	PubKey string
 	available bool
 }
 
-func (p *Peer) Addr() string {
+func (p *peer) Addr() string {
 	return p.addr
 }
 
-func (p *Peer) Name() string {
-	return p.name
+func (p *peer) Key() string {
+	return p.PubKey
 }
 
-func (p *Peer) Available() bool {
+func (p *peer) Available() bool {
 	return p.available
 }

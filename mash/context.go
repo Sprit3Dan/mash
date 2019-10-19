@@ -1,8 +1,10 @@
 package mash
 
-import "mash.com/transport"
+import (
+	"mash.com/transport"
+)
 
 type Context struct {
-	c *Config
-	ts []transport.Connector
+	config *Config
+	transports []transport.Transport
 }
