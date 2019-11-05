@@ -2,35 +2,21 @@ package mash
 
 import (
 	"mash.com/event"
-	"mash.com/transport"
 )
 
 type SelfPeer struct {
 	peer
-	ctx *Context
 	state *State
+	tunnels []Tunnel
 
 	bus chan event.Event
 }
 
-func Init(c *Config, ts []transport.Transport) SelfPeer {
-	return SelfPeer{
-		ctx: &Context{
-			config: c,
-			transports: ts,
-		},
-		state: &State{
-			connected: false,
-			connections: map[string]ForeignPeer{},
-		},
-		bus: make(chan event.Event),
-	}
-}
 
 func (sp *SelfPeer) Listen() chan error {
 	errChan := make(chan error)
 
-	for _, c := range sp.ctx.transports {
+	for _, c := range ctx.transport {
 		go c.Listen(sp.bus, errChan)
 	}
 
@@ -38,9 +24,15 @@ func (sp *SelfPeer) Listen() chan error {
 }
 
 func (sp *SelfPeer) InitTunnel(to ForeignPeer) Tunnel {
-	return NewTunnel(to, sp.ctx)
+	return NewTunnel(to)
 }
 
 func (sp *SelfPeer) Broadcast(msg event.Event) error {
+	for _,tunnel := range sp.tunnels {
+		t := tunnel.Type()
+
+		ctx.transport[t].Send(make([]byte, 100))
+		// TODO: get pipe from send method, join to msh bus
+	}
 	return nil
 }
