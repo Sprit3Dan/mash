@@ -7,10 +7,11 @@ import (
 )
 
 type UDPTransport struct {
+	Transport
 	Port int
 }
 
-func (ut *UDPTransport) Listen(eventChan chan event.Event, errorChan chan error) {
+func (ut UDPTransport) Listen(eventChan chan event.Event, errorChan chan error) {
 	conn, err := net.ListenUDP("udp", &net.UDPAddr{
 		IP:   net.ParseIP("127.0.0.1"),
 		Port: 1337,
@@ -42,8 +43,9 @@ func (ut *UDPTransport) Listen(eventChan chan event.Event, errorChan chan error)
 	}
 }
 
-func (ut *UDPTransport) Connected() bool {
+func (ut UDPTransport) Connected() bool {
 	return false
 }
-
-
+func (ut UDPTransport) Send(data []byte) {
+ 	// TODO: send
+}

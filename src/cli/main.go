@@ -51,11 +51,14 @@ func publish(c *cli.Context) error {
 }
 
 func listen(c *cli.Context) {
-	self := mash.Init(&mash.Config{}, []transport.Transport{
-		&transport.UDPTransport{
-			Port: c.Int("Port"),
-		},
-	})
+	port := c.Int("Port")
+	udp := transport.UDPTransport{Port: port}
+	transports := []transport.Transport{ udp }
+
+	self := mash.Init(
+		&mash.Config{},
+		transports,
+	)
 
 	eCh := self.Listen()
 	for {

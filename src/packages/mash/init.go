@@ -18,8 +18,17 @@ func Init(c *Config, ts []transport.Transport) SelfPeer {
 	ctx = *new(Context)
 
 	ctx.config = c
-	ctx.transport = ts
+	ctx.transport = toTransportMap(ts)
 	ctx.self = self
 
 	return self
+}
+
+func toTransportMap(array []transport.Transport) map[transport.TransportType]transport.Transport {
+	var tsMap = make(map[transport.TransportType]transport.Transport)
+	for _, ts := range array {
+		tsMap[ts.Type()] = ts
+	}
+
+	return tsMap
 }

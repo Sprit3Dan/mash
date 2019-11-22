@@ -6,6 +6,8 @@ type Transport interface {
 	Listen(eventChan chan event.Event, errorChan chan error)
 	Connected() bool
 	Send(data []byte) // TODO
+
+	CTX
 }
 
 type CTX interface {
